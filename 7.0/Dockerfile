@@ -44,7 +44,17 @@ COPY script/run.sh /run.sh
 RUN chmod 755 /run.sh
 
 COPY conf/config /config
+RUN apt-get update && apt-get install -y cron wget
 
+# Add our crontab file
+ADD crons.conf /var/www/crons.conf
+
+# Use the crontab file..
+RUN crontab /var/www/crons.conf
+
+COPY apache2-foreground-cron /usr/local/bin/
+WORKDIR /var/www/html
 
 EXPOSE 80
+CMD ["apache2-foreground-cron"]
 CMD ["/run.sh"]
