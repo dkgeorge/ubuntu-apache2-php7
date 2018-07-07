@@ -51,10 +51,9 @@ ADD crons.conf /var/www/crons.conf
 
 # Use the crontab file..
 RUN crontab /var/www/crons.conf
-
-COPY apache2-foreground-cron /usr/local/bin/
+RUN service cron start
 WORKDIR /var/www/html
 
 EXPOSE 80
-CMD ["apache2-foreground-cron"]
+EXPOSE 443
 CMD ["/run.sh"]
