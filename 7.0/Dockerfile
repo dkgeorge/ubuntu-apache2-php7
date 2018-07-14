@@ -44,7 +44,7 @@ COPY script/run.sh /run.sh
 RUN chmod 755 /run.sh
 
 COPY conf/config /config
-RUN apt-get update && apt-get install -y cron wget
+RUN apt-get update && apt-get install -y cron wget sendmail
 
 # Add our crontab file
 ADD crons.conf /var/www/crons.conf
